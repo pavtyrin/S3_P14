@@ -1,0 +1,44 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "cppbuild",
+            "label": "g++.exe build",
+            "command": "C:\\msys64\\ucrt64\\bin\\g++.exe",
+            "args": [
+                "${workspaceFolder}\\*.cpp",
+                "-o",
+                "${workspaceFolder}\\a.exe",
+                "-fdiagnostics-color=always",
+                "-Wall",
+                "-Wextra",
+                "-pedantic-errors",
+                "-std=c++23",
+                "-O2",
+                "-s",
+                "-static"
+            ],
+            "options": {
+                "cwd": "C:\\msys64\\ucrt64\\bin"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "revealProblems": "never",
+                "focus": true,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false,
+                "close": false
+            },
+            "detail": "compiler: C:\\msys64\\ucrt64\\bin\\g++.exe"
+        }
+    ]
+}
