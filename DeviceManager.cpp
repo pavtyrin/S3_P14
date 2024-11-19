@@ -117,6 +117,8 @@ void modifyDevice()
         cin.ignore();
         getline(cin, newType);
         kb->setKeyboardType(newType);
+        cout << endl;
+        cout << "Свойство устройства изменено." << endl;
     }
     
     else if (sc)
@@ -129,6 +131,8 @@ void modifyDevice()
         try
         {
             newResolution = stoi(input_resolution);
+            cout << endl;
+            cout << "Свойство устройства изменено." << endl;
         }
         catch (const invalid_argument&)
         {
