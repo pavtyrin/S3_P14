@@ -5,14 +5,11 @@
 #include "Keyboard.h"
 #include "Scanner.h"
 
-// Константы
 const int MAX_DEVICES = 100;
 
-// Глобальные переменные
 extern PeripheralDevice* devices[MAX_DEVICES];
 extern int deviceCount;
 
-// Функции
 void displayAllDevices();
 void addNewDevice();
 void modifyDevice();
