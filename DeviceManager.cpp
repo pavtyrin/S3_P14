@@ -83,17 +83,28 @@ void modifyDevice()
     cout << endl;
     cout << "Введите номер устройства для изменения: ";
 
-    int index;
-    cin >> index;
-    if (index < 1 || index > deviceCount)
+    string input_index;
+    int index = -1;
+    cin >> input_index;
+    try
+    {
+        index = stoi(input_index);
+        if (index < 1 || index > deviceCount)
+        {
+            cout << endl;
+            cout << "Неверный номер устройства.\n";
+            cout << endl;
+            cout << "Свойство устройства не изменено." << endl;
+            return;
+        }
+    }
+    catch (const invalid_argument&)
     {
         cout << endl;
-        cout << "Неверный номер устройства.\n";
-        cout << endl;
-        cout << "Свойство устройства не изменено." << endl;
+        cout << "Ошибка: индекс должен быть числом. Возврат в главное меню." << endl;
         return;
     }
-
+    
     PeripheralDevice* device = devices[index - 1];
     Keyboard* kb = dynamic_cast<Keyboard*>(device);
     Scanner* sc = dynamic_cast<Scanner*>(device);
@@ -110,10 +121,21 @@ void modifyDevice()
     
     else if (sc)
     {
-        int newResolution;
+        string input_resolution;
+        int newResolution = -1;
         cout << endl;
         cout << "Введите новое разрешение сканера: ";
-        cin >> newResolution;
+        cin >> input_resolution;
+        try
+        {
+            newResolution = stoi(input_resolution);
+        }
+        catch (const invalid_argument&)
+        {
+            cout << endl;
+            cout << "Ошибка: разрешение должно быть числом. Возврат в главное меню." << endl;
+            return;
+        }
         sc->setResolution(newResolution);
     }
 }
@@ -141,10 +163,25 @@ void calculateOverallAveragePrice()
 
 PeripheralDevice* createDevice()
 {
+    string input_choice;
+    int choice = -1;
     cout << endl;
     cout << "Выберите тип устройства (1 -- Клавиатура, 2 -- Сканер): ";
-    int choice;
-    cin >> choice;
+    cin >> input_choice;
+    try
+    {
+        choice = stoi(input_choice);
+        if (choice != 1 && choice != 2)
+        {
+            cout << endl;
+            cout << "Ошибка: выбор должен быть либо 1 -- Клавиатура, либо 2 -- Сканер." << endl;
+        }
+    }
+    catch (const invalid_argument&)
+    {
+        cout << endl;
+        cout << "Ошибка: выбор должен быть числом. Возврат в главное меню." << endl;
+    }
 
     PeripheralDevice* newDevice = nullptr;
 
@@ -163,49 +200,87 @@ PeripheralDevice* createDevice()
     else if (choice == 2)
     {
         string name;
-        int resolution;
+        string input_resolution;
+        int resolution = -1;
         cout << endl;
         cout << "Введите название сканера: ";
         cin.ignore();
         getline(cin, name);
         cout << "Введите разрешение сканера (DPI): ";
-        cin >> resolution;
-        if (resolution > 0)
+        cin >> input_resolution;
+        try
         {
-            newDevice = new Scanner(name, resolution);
+            resolution = stoi(input_resolution);
+            if (resolution <= 0)
+            {
+                cout << endl;
+                cout << "Разрешение сканера -- положительное число." << endl;
+                cout << endl;
+                cout << "Устройство не добавлено." << endl;
+                return nullptr;
+            }
         }
-    
-        else
+        catch (const invalid_argument&)
         {
             cout << endl;
-            cout << "Разрешение сканера -- положительное число." << endl;
-            cout << endl;
-            cout << "Устройство не добавлено." << endl;
+            cout << "Ошибка: разрешение должно быть числом. Возврат в главное меню." << endl;
             return nullptr;
         }
+        newDevice = new Scanner(name, resolution);
     }
     
     else
     {
-        cout << endl;
-        cout << "Неверный выбор." << endl;
         return nullptr;
     }
 
     cout << endl;
     cout << "Сколько цен вы хотели бы добавить в диапазон? ";
-    int numPrices;
-    cin >> numPrices;
+    string input_numPrices;
+    int numPrices = -1;
+    cin >> input_numPrices;
+    try
+    {
+        numPrices = stoi(input_numPrices);
+        if (numPrices <= 0)
+        {
+            cout << endl;
+            cout << "Ошибка: количество цен должно быть положительным числом." << endl;
+            return nullptr;
+        }
+    }
+    catch (const invalid_argument&)
+    {
+        cout << endl;
+        cout << "Ошибка: количество цен должно быть числом. Возврат в главное меню." << endl;
+        return nullptr;
+    }
 
     for (int i = 0; i < numPrices; i++)
     {
         cout << endl;
         cout << "Введите цену " << (i + 1) << ": ";
-        double price;
-        cin >> price;
+        string input_price;
+        double price = -1.0;
+        cin >> input_price;
+        try
+        {
+            price = stod(input_price);
+            if (price <= 0.0)
+            {
+                cout << endl;
+                cout << "Ошибка: цена должна быть положительным числом. Возврат в главное меню." << endl;
+                return nullptr;
+            }
+        }
+        catch (const invalid_argument&)
+        {
+            cout << endl;
+            cout << "Ошибка: цена должна быть числом. Возврат в главное меню." << endl;
+            return nullptr;
+        }
         newDevice->addPrice(price);
     }
-
     cout << endl;
     cout << "Устройство добавлено." << endl;
     return newDevice;
@@ -236,14 +311,12 @@ void menu()
         if (choice == "2")
         {
             addNewDevice();
-            displayAllDevices();
             continue;
         }
 
         if (choice == "3")
         {
             modifyDevice();
-            displayAllDevices();
             continue;
         }
 
