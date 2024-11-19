@@ -1,6 +1,7 @@
 #include <iostream>
 #include <iomanip>
 #include <string>
+#include <cstdlib>
 #include "DeviceManager.h"
 
 using namespace std;
@@ -177,43 +178,53 @@ PeripheralDevice* createDevice()
 
 void menu()
 {
-    int choice;
+    string choice;
 
-    do
+    while (true)
     {
         cout << "\nMenu:\n";
         cout << "1. Display all devices\n";
         cout << "2. Add new device\n";
         cout << "3. Modify device property\n";
         cout << "4. Calculate average price of all devices\n";
-        cout << "5. Exit\n";
+        cout << "0. Exit\n";
         cout << "Enter your choice: ";
         cin >> choice;
 
-        switch (choice)
+        if (choice == "1")
         {
-            case 1:
-                displayAllDevices();
-                break;
-
-            case 2:
-                addNewDevice();
-                break;
-
-            case 3:
-                modifyDevice();
-                break;
-
-            case 4:
-                calculateOverallAveragePrice();
-                break;
-
-            case 5:
-                cout << "Exiting program...\n";
-                break;
-
-            default:
-                cout << "Invalid choice! Try again.\n";
+            displayAllDevices();
+            continue;
         }
-    } while (choice != 5);
+
+        if (choice == "2")
+        {
+            addNewDevice();
+            continue;
+        }
+
+        if (choice == "3")
+        {
+            modifyDevice();
+            continue;
+        }
+
+        if (choice == "4")
+        {
+            calculateOverallAveragePrice();
+            continue;
+        }
+
+        if (choice == "0")
+        {
+            cout << "Exiting program...\n";
+            exit (0);
+        }
+
+        else
+        {
+            cout << "Invalid choice! Try again.\n";
+            continue;
+        }
+    }
 }
