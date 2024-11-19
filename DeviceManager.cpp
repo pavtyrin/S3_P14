@@ -310,13 +310,23 @@ void menu()
 
         if (choice == "2")
         {
+            size_t initialDeviceCount = deviceCount;
             addNewDevice();
+            if (deviceCount > initialDeviceCount)
+            {
+                displayAllDevices();
+            }
             continue;
         }
 
         if (choice == "3")
         {
+            size_t initialDeviceCount = deviceCount;
             modifyDevice();
+            if (deviceCount > initialDeviceCount)
+            {
+                displayAllDevices();
+            }
             continue;
         }
 
