@@ -15,32 +15,38 @@ void addDefaultDevices()
     devices[deviceCount - 1]->addPrice(50);
     devices[deviceCount - 1]->addPrice(60);
 
-    devices[deviceCount++] = new Keyboard("Gaming Keyboard", "RGB Mechanical");
-    devices[deviceCount - 1]->addPrice(120);
-    devices[deviceCount - 1]->addPrice(150);
-
     devices[deviceCount++] = new Scanner("Office Scanner", 600);
     devices[deviceCount - 1]->addPrice(200);
     devices[deviceCount - 1]->addPrice(250);
+
+    devices[deviceCount++] = new Keyboard("Gaming Keyboard", "RGB Mechanical");
+    devices[deviceCount - 1]->addPrice(120);
+    devices[deviceCount - 1]->addPrice(150);
 
     devices[deviceCount++] = new Scanner("High-Res Scanner", 1200);
     devices[deviceCount - 1]->addPrice(350);
     devices[deviceCount - 1]->addPrice(400);
 
-    cout << "Default devices added to the system.\n";
+    cout << endl;
+    cout << endl;
+    cout << "Устройства по умолчанию добавлены в программу.\n";
+    cout << endl;
 }
 
 void displayAllDevices()
 {
     if (deviceCount == 0)
     {
-        cout << "No devices available.\n";
+        cout << endl;
+        cout << "Нет доступных устройств.\n";
         return;
     }
 
     for (int i = 0; i < deviceCount; i++)
     {
-        cout << "\nDevice #" << (i + 1) << ":\n";
+        cout << endl;
+        cout << "\nУстройство №" << (i + 1) << ":\n";
+        cout << endl;
         devices[i]->displayInfo();
     }
 }
@@ -58,7 +64,8 @@ void addNewDevice()
         
         else
         {
-            cout << "Device limit reached!" << endl;
+            cout << endl;
+            cout << "Достигнут предел для количества устройств." << endl;
             delete newDevice;
         }
     }
@@ -69,17 +76,20 @@ void modifyDevice()
 {
     if (deviceCount == 0)
     {
-        cout << "No devices to modify.\n";
+        cout << endl;
+        cout << "Нет устройств, которые можно было бы модифицировать.\n";
         return;
     }
 
-    cout << "Enter device number to modify: ";
+    cout << endl;
+    cout << "Введите номер устройства для изменения: ";
 
     int index;
     cin >> index;
     if (index < 1 || index > deviceCount)
     {
-        cout << "Invalid device number!\n";
+        cout << endl;
+        cout << "Неверный номер устройства.\n";
         return;
     }
 
@@ -90,7 +100,8 @@ void modifyDevice()
     if (kb)
     {
         string newType;
-        cout << "Enter new keyboard type: ";
+        cout << endl;
+        cout << "Введите новый тип клавиатуры: ";
         cin.ignore();
         getline(cin, newType);
         kb->setKeyboardType(newType);
@@ -99,7 +110,8 @@ void modifyDevice()
     else if (sc)
     {
         int newResolution;
-        cout << "Enter new scanner resolution: ";
+        cout << endl;
+        cout << "Введите новое разрешение сканера: ";
         cin >> newResolution;
         sc->setResolution(newResolution);
     }
@@ -109,7 +121,8 @@ void calculateOverallAveragePrice()
 {
     if (deviceCount == 0)
     {
-        cout << "No devices to calculate average price.\n";
+        cout << endl;
+        cout << "Нет устройств для расчета средней цены.\n";
         return;
     }
 
@@ -120,13 +133,15 @@ void calculateOverallAveragePrice()
         totalSum += devices[i]->calculateAveragePrice();
         totalCount++;
     }
-    cout << "Overall average price: " << fixed << setprecision(2)
+    cout << endl;
+    cout << "Общая средняя цена: " << "$" << fixed << setprecision(2)
          << (totalSum / totalCount) << endl;
 }
 
 PeripheralDevice* createDevice()
 {
-    cout << "Choose device type (1 - Keyboard, 2 - Scanner): ";
+    cout << endl;
+    cout << "Выберите тип устройства (1 -- Клавиатура, 2 -- Сканер): ";
     int choice;
     cin >> choice;
 
@@ -135,10 +150,11 @@ PeripheralDevice* createDevice()
     if (choice == 1)
     {
         string name, type;
-        cout << "Enter keyboard name: ";
+        cout << endl;
+        cout << "Введите название клавиатуры: ";
         cin.ignore();
         getline(cin, name);
-        cout << "Enter keyboard type: ";
+        cout << "Введите тип клавиатуры: ";
         getline(cin, type);
         newDevice = new Keyboard(name, type);
     }
@@ -147,27 +163,40 @@ PeripheralDevice* createDevice()
     {
         string name;
         int resolution;
-        cout << "Enter scanner name: ";
+        cout << endl;
+        cout << "Введите название сканера: ";
         cin.ignore();
         getline(cin, name);
-        cout << "Enter scanner resolution (DPI): ";
+        cout << "Введите разрешение сканера (DPI): ";
         cin >> resolution;
-        newDevice = new Scanner(name, resolution);
+        if (resolution > 0)
+        {
+            newDevice = new Scanner(name, resolution);
+        }
+    
+        else
+        {
+            cout << endl;
+            cout << "Разрешение сканера -- положительное число." << endl;
+        }
     }
     
     else
     {
-        cout << "Invalid choice!" << endl;
+        cout << endl;
+        cout << "Неверный выбор." << endl;
         return nullptr;
     }
 
-    cout << "How many prices would you like to add? ";
+    cout << endl;
+    cout << "Сколько цен вы хотели бы добавить в диапазон? ";
     int numPrices;
     cin >> numPrices;
 
     for (int i = 0; i < numPrices; i++)
     {
-        cout << "Enter price " << (i + 1) << ": ";
+        cout << endl;
+        cout << "Введите цену " << (i + 1) << ": ";
         double price;
         cin >> price;
         newDevice->addPrice(price);
@@ -182,13 +211,14 @@ void menu()
 
     while (true)
     {
-        cout << "\nMenu:\n";
-        cout << "1. Display all devices\n";
-        cout << "2. Add new device\n";
-        cout << "3. Modify device property\n";
-        cout << "4. Calculate average price of all devices\n";
-        cout << "0. Exit\n";
-        cout << "Enter your choice: ";
+        cout << "\nМеню:\n";
+        cout << "1. Отображение всех устройств\n";
+        cout << "2. Добавить новое устройство\n";
+        cout << "3. Изменить свойство устройства\n";
+        cout << "4. Рассчитать среднюю цену на все устройства\n";
+        cout << "0. Выход\n";
+        cout << endl;
+        cout << "Введите свой выбор: ";
         cin >> choice;
 
         if (choice == "1")
@@ -200,12 +230,14 @@ void menu()
         if (choice == "2")
         {
             addNewDevice();
+            displayAllDevices();
             continue;
         }
 
         if (choice == "3")
         {
             modifyDevice();
+            displayAllDevices();
             continue;
         }
 
@@ -217,13 +249,16 @@ void menu()
 
         if (choice == "0")
         {
-            cout << "Exiting program...\n";
+            cout << endl;
+            cout << "Выход из программы...\n";
+            cout << endl;
             exit (0);
         }
 
         else
         {
-            cout << "Invalid choice! Try again.\n";
+            cout << endl;
+            cout << "Неверный выбор. Пробуйте снова.\n";
             continue;
         }
     }

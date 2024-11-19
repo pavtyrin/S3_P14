@@ -7,20 +7,21 @@ Scanner::Scanner(const string& name, int res)
 
 void Scanner::displayInfo() const
 {
-    cout << setw(20) << left << "Device Name" 
-         << setw(25) << left << "Prices" 
-         << setw(20) << left << "Average Price" << endl;
+    cout << setw(20) << left << "Name of device" 
+         << setw(25) << left << "Price range" 
+         << setw(20) << left << "Average price" << endl;
     cout << setfill('-') << setw(65) << "-" << endl;
     cout << setfill(' ') << setw(20) << left << deviceName;
 
     for (int i = 0; i < priceCount; i++)
     {
-        cout << setw(11) << fixed << setprecision(2) << prices[i] << " ";
+        cout << "$" << setw(10) << fixed << setprecision(2) << prices[i] << " ";
     }
 
-    cout << setw(19) << fixed << setprecision(2) << calculateAveragePrice() << endl;
+    cout << "$" << setw(18) << fixed << setprecision(2) << calculateAveragePrice() << endl;
 
-    cout << "Scanner Resolution: " << resolution << " DPI" << endl;
+    cout << endl;
+    cout << "Разрешение сканера: " << resolution << " DPI" << endl;
 }
 
 void Scanner::setResolution(int res)
@@ -32,6 +33,7 @@ void Scanner::setResolution(int res)
     
     else
     {
-        cout << "Resolution must be positive!" << endl;
+        cout << endl;
+        cout << "Разрешение сканера -- положительное число." << endl;
     }
 }
