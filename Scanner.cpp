@@ -35,5 +35,7 @@ void Scanner::setResolution(int res)
     {
         cout << endl;
         cout << "Разрешение сканера -- положительное число." << endl;
+        cout << endl;
+        cout << "Свойство устройства не изменено." << endl;
     }
 }

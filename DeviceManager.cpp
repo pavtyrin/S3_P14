@@ -71,13 +71,12 @@ void addNewDevice()
     }
 }
 
-// Функция изменения свойств устройства
 void modifyDevice()
 {
     if (deviceCount == 0)
     {
         cout << endl;
-        cout << "Нет устройств, которые можно было бы модифицировать.\n";
+        cout << "Нет устройств, которые можно было бы изменить.\n";
         return;
     }
 
@@ -90,6 +89,8 @@ void modifyDevice()
     {
         cout << endl;
         cout << "Неверный номер устройства.\n";
+        cout << endl;
+        cout << "Свойство устройства не изменено." << endl;
         return;
     }
 
@@ -178,6 +179,9 @@ PeripheralDevice* createDevice()
         {
             cout << endl;
             cout << "Разрешение сканера -- положительное число." << endl;
+            cout << endl;
+            cout << "Устройство не добавлено." << endl;
+            return nullptr;
         }
     }
     
@@ -202,6 +206,8 @@ PeripheralDevice* createDevice()
         newDevice->addPrice(price);
     }
 
+    cout << endl;
+    cout << "Устройство добавлено." << endl;
     return newDevice;
 }
 
