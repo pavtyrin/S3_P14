@@ -39,10 +39,10 @@ void PeripheralDevice::displayInfo() const
 
     for (int i = 0; i < priceCount; i++)
     {
-        cout << setw(10) << fixed << setprecision(2) << prices[i] << " ";
+        cout << setw(11) << fixed << setprecision(2) << prices[i] << " ";
     }
 
-    cout << setw(20) << fixed << setprecision(2) << calculateAveragePrice() << endl;
+    cout << setw(19) << fixed << setprecision(2) << calculateAveragePrice() << endl;
 }
 
 PeripheralDevice::~PeripheralDevice()
